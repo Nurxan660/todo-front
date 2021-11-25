@@ -1,24 +1,50 @@
-import logo from './logo.svg';
-import './App.css';
+import {BrowserRouter  , Route,Switch} from 'react-router-dom'
+//import './App.css';
+import Navbar from './components/Navbar.jsx'
+import TodoForm from './components/TodoForm'
+import Login from './components/Login'
+import Registration from './components/Registration'
+import React, { useEffect, useState } from 'react'
+import { getUser } from './services/AuthService'
+import Admin from './components/Admin.jsx'
 
 function App() {
+  const user = getUser();
+  const [data,setData]= useState([])
+  const [curUser, setCurUser] = useState(false);
+  const [showAdmin, setShowAdmin] = useState(false);
+
+  useEffect(() => {
+    const user = getUser();
+    if (user) {
+      
+      setCurUser(user.roles.includes("ROLE_USER"))
+      setShowAdmin(user.roles.includes("ROLE_ADMIN"))
+    }
+
+  }, [])
+
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter >
+     <Navbar />
+      
+
+     <Switch>
+        {curUser&& (<Route path='/todo' render={()=><TodoForm data={data}/>} exact>
+        </Route>)}
+        {!user && (<Route path='/login' component={Login} exact>
+        </Route>)}
+
+        {!user && (<Route path='/' render={() => <Registration setData={setData} />} exact>
+        </Route>)}
+        {showAdmin&&(<Route path='/admin' component={Admin} exact>
+        </Route>)}
+
+
+     </Switch>
+    
+    </BrowserRouter >
   );
 }
 

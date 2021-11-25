@@ -1,0 +1,49 @@
+.todo{
+    display: flex;
+    justify-content: center;
+    height: 500px;
+}
+.todoForm{
+padding: 80px 0px 0px;
+}
+
+.todoInput{
+width: 300px;
+ border: 2px solid blueviolet;
+    border-radius: 4px 0 0 4px;
+     padding: 14px 32px 14px 16px; 
+   background: transparent;
+  
+   
+}
+.TodoButton{
+     cursor:pointer;
+   padding:  16px 7px;
+    border-radius: 0 4px 4px 0;
+    background-color: blueviolet;
+    color: white;
+    border:none
+   
+}
+.item-todo{
+   display: flex;
+   justify-content: space-between;
+ border: none;
+ border-radius: 5px;
+width:370px;
+ margin: 0 auto;
+  text-align: left;
+  padding: 14px;
+   margin-top: 15px;
+    background-color: blueviolet;
+    cursor: pointer;
+   color:white
+
+}
+.item-text{
+
+   flex-grow: 1;
+}
+.strike{
+    text-decoration: line-through;
+}
